@@ -1,108 +1,237 @@
+
 <html>
+    <head>
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
 
-  <head>
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
+var background = document.createElement('div');
+background.style.backgroundImage = 'url(https://static.vecteezy.com/system/resources/thumbnails/006/623/002/small/seamless-pattern-simple-hexagon-ornament-minimalist-black-and-white-pattern-design-can-be-used-for-posters-brochures-postcards-and-other-printing-needs-illustration-free-vector.jpg)';
+background.style.backgroundSize = 'cover';
+background.style.backgroundRepeat = 'repeat';
+background.style.position = 'fixed';
+background.style.top = '0';
+background.style.left = '0';
+background.style.width = '100%';
+background.style.height = '100%';
+document.body.appendChild(background);
 
-        var img = document.createElement('img');
-        img.src = 'https://static.wikia.nocookie.net/scratchpad/images/3/3e/Polen.png/revision/latest/scale-to-width-down/287?cb=20200801171314';
-        document.body.appendChild(img);
+var urls = [
+  'https://whatsticker.online/stickers_asset/ws-pack-169765pzD2g77/c3d1407d24ac3.webp',
+  'https://whatsticker.online/stickers_asset/ws-pack-169765pzD2g77/c11539ae26cf1.webp',
+  'https://whatsticker.online/stickers_asset/ws-pack-169765pzD2g77/c2fb9eef76a67.webp',
+  'https://whatsticker.online/stickers_asset/ws-pack-169757SxkjbKn/c63146eca22e.webp',
+  'https://whatsticker.online/stickers_asset/ws-pack-257365017POo5/c92d240caa35.webp',
+  'https://whatsticker.online/stickers_asset/ws-pack-257365017POo5/cc3b07aaf574.webp',
+  'https://whatsticker.online/stickers_asset/ws-pack-257365017POo5/c124ec7bb3bea.webp',
+  'https://whatsticker.online/stickers_asset/ws-pack-250693JIQ3XsC/c145f0f150abc.webp',
+  'https://whatsticker.online/stickers_asset/ws-pack-250693JIQ3XsC/c2ff7caf306a.webp',
+  'https://whatsticker.online/stickers_asset/ws-pack-250693JIQ3XsC/c585ce0025b70.webp',
+  'https://whatsticker.online/stickers_asset/ws-pack-173809OKHDD4O/c36ed5672ed10.webp',
+  'https://whatsticker.online/stickers_asset/ws-pack-173809OKHDD4O/c18a2ca2fe696.webp',
+  'https://whatsticker.online/stickers_asset/ws-pack-173809OKHDD4O/c139c0e107311.webp',
+  'https://whatsticker.online/stickers_asset/ws-pack-173809OKHDD4O/c24d55b7a93fb.webp'
+];
 
-        img.style.width = '100px';
+var randomImage = document.createElement('img');
+randomImage.src = urls[Math.floor(Math.random() * urls.length)];
+randomImage.style.position = 'fixed';
+randomImage.style.top = Math.floor(Math.random() * window.innerHeight) + 'px';
+randomImage.style.left = Math.floor(Math.random() * window.innerWidth) + 'px';
+document.body.appendChild(randomImage);
 
-        img.style.width = (parseInt(img.style.width) + 10) + 'px';
+randomImage.style.width = '100px';
+randomImage.style.height = '100px';
 
-        img.style.position = 'absolute';
+setInterval(function() {
+  randomImage.style.top = Math.floor(Math.random() * window.innerHeight) + 'px';
+  randomImage.style.left = Math.floor(Math.random() * window.innerWidth) + 'px';
+}, 1850);
 
-        var counter = 0;
-        var counterText = document.createElement('div');
-        counterText.innerHTML = counter;
-        document.body.appendChild(counterText);
+var checkIfTouchingEdge = function() {
+  if (randomImage.offsetTop <= 0 || randomImage.offsetTop >= window.innerHeight - randomImage.offsetHeight) {
+    randomImage.style.top = Math.floor(Math.random() * window.innerHeight) + 'px';
+  }
+  if (randomImage.offsetLeft <= 0 || randomImage.offsetLeft >= window.innerWidth - randomImage.offsetWidth) {
+    randomImage.style.left = Math.floor(Math.random() * window.innerWidth) + 'px';
+  }
+};
+setInterval(checkIfTouchingEdge, 100);
 
-        img.addEventListener('click', function() {
-          counter++;
-          counterText.innerHTML = counter;
-        });
+var pointCounter = document.createElement('div');
+pointCounter.style.position = 'fixed';
+pointCounter.style.top = '50%';
+pointCounter.style.left = '50%';
+pointCounter.style.transform = 'translate(-50%, -50%)';
+pointCounter.style.fontSize = '50px';
+pointCounter.style.fontFamily = 'sans-serif';
+pointCounter.style.color = 'white';
+pointCounter.innerHTML = '0';
+document.body.appendChild(pointCounter);
 
-        counterText.style.position = 'absolute';
-        counterText.style.bottom = '0';
+var points = 0;
+var updatePoints = function() {
+  points++;
+  pointCounter.innerHTML = points;
+  randomImage.src = urls[Math.floor(Math.random() * urls.length)];
+  randomImage.style.top = Math.floor(Math.random() * window.innerHeight) + 'px';
+  randomImage.style.left = Math.floor(Math.random() * window.innerWidth) + 'px';
+};
+randomImage.addEventListener('click', updatePoints);
 
-        counterText.style.fontSize = '30px';
+pointCounter.style.color = 'black';
 
-        setInterval(function() {
-          img.style.left = Math.random() * (window.innerWidth - img.width) + 'px';
-          img.style.top = Math.random() * (window.innerHeight - img.height) + 'px';
-          img.src = urls[Math.floor(Math.random() * urls.length)];
+pointCounter.style.top = '20';
 
-        }, 1500);
+pointCounter.style.left = '50%';
+pointCounter.style.transform = 'translate(-50%, 0)';
 
-        img.addEventListener('click', function() {
-          img.style.left = Math.random() * (window.innerWidth - img.width) + 'px';
-          img.style.top = Math.random() * (window.innerHeight - img.height) + 'px';
-        });
+pointCounter.style.fontWeight = 'bold';
+pointCounter.style.fontSize = '60px';
 
-        var timer = document.createElement('div');
-        timer.innerHTML = '0';
-        document.body.appendChild(timer);
-        timer.style.position = 'absolute';
-        timer.style.bottom = '0';
-        timer.style.fontSize = '30px';
+pointCounter.style.top = '44px';
 
-        timer.style.left = '50%';
-        timer.style.transform = 'translateX(-50%)';
+var mImage = document.createElement('img');
+mImage.src = 'https://media.discordapp.net/attachments/1057616191130181692/1060226675549417585/image.png?width=533&height=533';
+mImage.style.position = 'fixed';
+mImage.style.top = '50%';
+mImage.style.left = '50%';
+mImage.style.transform = 'translate(-50%, -50%)';
+mImage.style.display = 'none';
+document.body.appendChild(mImage);
 
-        var urls = [
-          'https://whatsticker.online/stickers_asset/ws-pack-169765pzD2g77/c3d1407d24ac3.webp',
-          'https://whatsticker.online/stickers_asset/ws-pack-169765pzD2g77/c11539ae26cf1.webp',
-          'https://whatsticker.online/stickers_asset/ws-pack-169765pzD2g77/c2fb9eef76a67.webp',
-          'https://whatsticker.online/stickers_asset/ws-pack-169757SxkjbKn/c63146eca22e.webp',
-          'https://whatsticker.online/stickers_asset/ws-pack-257365017POo5/c92d240caa35.webp',
-          'https://whatsticker.online/stickers_asset/ws-pack-257365017POo5/cc3b07aaf574.webp',
-          'https://whatsticker.online/stickers_asset/ws-pack-257365017POo5/c124ec7bb3bea.webp',
-          'https://whatsticker.online/stickers_asset/ws-pack-250693JIQ3XsC/c145f0f150abc.webp',
-          'https://whatsticker.online/stickers_asset/ws-pack-250693JIQ3XsC/c2ff7caf306a.webp',
-          'https://whatsticker.online/stickers_asset/ws-pack-250693JIQ3XsC/c585ce0025b70.webp',
-          'https://whatsticker.online/stickers_asset/ws-pack-173809OKHDD4O/c36ed5672ed10.webp',
-          'https://whatsticker.online/stickers_asset/ws-pack-173809OKHDD4O/c18a2ca2fe696.webp',
-          'https://whatsticker.online/stickers_asset/ws-pack-173809OKHDD4O/c139c0e107311.webp',
-          'https://whatsticker.online/stickers_asset/ws-pack-173809OKHDD4O/c24d55b7a93fb.webp'
-        ];
+var showMImage = function() {
+  mImage.style.display = 'block';
+};
 
-        document.body.style.background = 'url(https://upload.wikimedia.org/wikipedia/en/thumb/1/12/Flag_of_Poland.svg/1200px-Flag_of_Poland.svg.png)';
-        document.body.style.backgroundSize = 'cover';
+var hideMImage = function() {
+  mImage.style.display = 'none';
+};
 
-        document.body.style.backgroundPosition = 'center';
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'm') {
+    if (mImage.style.display == 'none') {
+      showMImage();
+    }
+    else {
+      hideMImage()
+    }
+  }
+});
 
-        counterText.style.fontWeight = 'bold';
-        timer.style.fontWeight = 'bold';
+mImage.style.width = '400px';
+mImage.style.height = '400px';
 
-        var button = document.createElement('button');
-        button.innerHTML = 'Start';
-        document.body.appendChild(button);
-        button.style.position = 'absolute';
-        button.style.top = '0';
-        button.style.left = '50%';
-        button.style.transform = 'translateX(-50%)';
+var startGameButton = document.createElement('button');
+startGameButton.style.position = 'fixed';
+startGameButton.style.top = '50%';
+startGameButton.style.left = '50%';
+startGameButton.style.transform = 'translate(-50%, -50%)';
+startGameButton.style.fontSize = '50px';
+startGameButton.style.fontFamily = 'sans-serif';
+startGameButton.style.color = 'white';
 
-        img.style.display = 'none';
-        counterText.style.display = 'none';
-        timer.style.display = 'none';
+startGameButton.style.textShadow = '0 0 10px black';
+startGameButton.innerHTML = 'Start Game';
+document.body.appendChild(startGameButton);
 
-        button.addEventListener('click', function() {
-          img.style.display = 'block';
-          counterText.style.display = 'block';
-          timer.style.display = 'block';
-          button.style.display = 'none';
-        });
+var gameTitle = document.createElement('div');
+gameTitle.style.position = 'fixed';
+gameTitle.style.top = '20%';
+gameTitle.style.left = '50%';
+gameTitle.style.transform = 'translate(-50%, -50%)';
+gameTitle.style.fontSize = '50px';
+gameTitle.style.fontFamily = 'sans-serif';
+gameTitle.style.color = 'white';
+gameTitle.innerHTML = 'Polandball Clicker';
+gameTitle.style.textShadow = '0 0 10px black';
+document.body.appendChild(gameTitle);
 
-        var time = 0;
-        setInterval(function() {
-          time++;
-          timer.innerHTML = time;
-        }, 1000);
-      });
+var startGame = function() {
+  startGameButton.style.display = 'none';
+  gameTitle.style.display = 'none';
+  randomImage.style.display = 'block';
+  pointCounter.style.display = 'block';
+};
 
-    </script>
-  </head>
+startGameButton.addEventListener('click', startGame);
 
+randomImage.style.display = 'none';
+pointCounter.style.display = 'none';
+
+var polandball = document.createElement('img');
+polandball.src = 'https://whatsticker.online/stickers_asset/ws-pack-169765pzD2g77/c11539ae26cf1.webp';
+polandball.style.position = 'fixed';
+polandball.style.top = '50%';
+polandball.style.left = '20%';
+polandball.style.transform = 'translate(-50%, -50%)';
+polandball.style.width = '200px';
+polandball.style.height = '200px';
+
+document.body.appendChild(polandball);
+
+var polandball2 = document.createElement('img');
+polandball2.src = 'https://whatsticker.online/stickers_asset/ws-pack-173809OKHDD4O/c24d55b7a93fb.webp';
+polandball2.style.position = 'fixed';
+polandball2.style.top = '50%';
+polandball2.style.left = '80%';
+polandball2.style.transform = 'translate(-50%, -50%)';
+polandball2.style.width = '200px';
+polandball2.style.height = '200px';
+document.body.appendChild(polandball2);
+
+polandball.style.filter = 'drop-shadow(0 0 10px black)';
+polandball2.style.filter = 'drop-shadow(0 0 10px black)';
+
+startGameButton.style.filter = 'drop-shadow(0 0 10px black)';
+
+var polandballImageIndex = 0;
+var polandball2ImageIndex = 0;
+
+var updatePolandballImage = function() {
+  polandball.src = urls[polandballImageIndex];
+  polandballImageIndex++;
+  if (polandballImageIndex >= urls.length) {
+    polandballImageIndex = 0;
+  }
+};
+
+var updatePolandball2Image = function() {
+  polandball2.src = urls[polandball2ImageIndex];
+  polandball2ImageIndex++;
+  if (polandball2ImageIndex >= urls.length) {
+    polandball2ImageIndex = 0;
+  }
+};
+
+setInterval(updatePolandballImage, 2000);
+setInterval(updatePolandball2Image, 2000);
+
+var hidePolandballs = function() {
+  polandball.style.display = 'none';
+  polandball2.style.display = 'none';
+};
+
+startGameButton.addEventListener('click', hidePolandballs);
+
+var reload = function() {
+  location.reload();
+};
+
+var music = document.createElement('audio');
+music.src = 'https://web.archive.org/web/20041019012018/http://www.navyband.navy.mil/anthems/ANTHEMS/Poland.mp3';
+music.loop = true;
+document.body.appendChild(music);
+
+var playMusic = function() {
+  music.play();
+};
+
+var pauseMusic = function() {
+  music.pause();
+};
+
+startGameButton.addEventListener('click', playMusic);
+});
+</script>
+</head>
 </html>
