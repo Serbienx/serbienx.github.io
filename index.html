@@ -172,31 +172,19 @@ pointCounter.style.display = 'none';
 var polandball = document.createElement('img');
 polandball.src = 'https://whatsticker.online/stickers_asset/ws-pack-169765pzD2g77/c11539ae26cf1.webp';
 polandball.style.position = 'fixed';
-polandball.style.top = '50%';
-polandball.style.left = '20%';
+polandball.style.top = '80%';
+polandball.style.left = '50%';
 polandball.style.transform = 'translate(-50%, -50%)';
 polandball.style.width = '200px';
 polandball.style.height = '200px';
 
 document.body.appendChild(polandball);
 
-var polandball2 = document.createElement('img');
-polandball2.src = 'https://whatsticker.online/stickers_asset/ws-pack-173809OKHDD4O/c24d55b7a93fb.webp';
-polandball2.style.position = 'fixed';
-polandball2.style.top = '50%';
-polandball2.style.left = '80%';
-polandball2.style.transform = 'translate(-50%, -50%)';
-polandball2.style.width = '200px';
-polandball2.style.height = '200px';
-document.body.appendChild(polandball2);
-
 polandball.style.filter = 'drop-shadow(0 0 10px black)';
-polandball2.style.filter = 'drop-shadow(0 0 10px black)';
 
 startGameButton.style.filter = 'drop-shadow(0 0 10px black)';
 
 var polandballImageIndex = 0;
-var polandball2ImageIndex = 0;
 
 var updatePolandballImage = function() {
   polandball.src = urls[polandballImageIndex];
@@ -206,20 +194,10 @@ var updatePolandballImage = function() {
   }
 };
 
-var updatePolandball2Image = function() {
-  polandball2.src = urls[polandball2ImageIndex];
-  polandball2ImageIndex++;
-  if (polandball2ImageIndex >= urls.length) {
-    polandball2ImageIndex = 0;
-  }
-};
-
 setInterval(updatePolandballImage, 2000);
-setInterval(updatePolandball2Image, 2000);
 
 var hidePolandballs = function() {
   polandball.style.display = 'none';
-  polandball2.style.display = 'none';
 };
 
 startGameButton.addEventListener('click', hidePolandballs);
