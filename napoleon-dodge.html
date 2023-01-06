@@ -1,0 +1,153 @@
+
+<html>
+    <head>
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+dead = false;
+
+
+var img = document.createElement('img');
+img.src = 'https://graphics.stdout.cz/2732639bb8342274c034d71ae2bbe80a/uvod._0_.png';
+document.body.appendChild(img);
+
+img.style.width = '15%';
+
+img.style.transform = 'scaleX(-1)';
+
+img.style.position = 'absolute';
+
+var urls = [
+  'https://www.crwflags.com/fotw/images/d/de_prus1.gif',
+  'https://upload.wikimedia.org/wikipedia/commons/8/8b/Flag_of_Austria_%28Empire_Total_War%29.svg',
+  'https://cdn.britannica.com/25/4825-050-977D8C5E/Flag-United-Kingdom.jpg',
+  'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Bandera_de_N%C3%A1poles_-_Trast%C3%A1mara.svg/1280px-Bandera_de_N%C3%A1poles_-_Trast%C3%A1mara.svg.png',
+  'https://upload.wikimedia.org/wikipedia/en/thumb/f/f3/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png?20120812153731',
+  'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Statenvlag.svg/188px-Statenvlag.svg.png',
+  'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Flag_of_Cross_of_Burgundy.svg/1200px-Flag_of_Cross_of_Burgundy.svg.png',
+  'https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Flag_of_Sweden.svg/1200px-Flag_of_Sweden.svg.png?20140526092806',
+  'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Flag_of_the_Kingdom_of_Sardinia.svg/2560px-Flag_of_the_Kingdom_of_Sardinia.svg.png',
+  'https://upload.wikimedia.org/wikipedia/commons/6/68/Flag_of_Portugal_%281750%29.svg',
+  'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Bandiera_del_Regno_di_Sicilia_4.svg/1280px-Bandiera_del_Regno_di_Sicilia_4.svg.png',
+  'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Banner_of_the_Holy_Roman_Emperor_without_haloes_%281400-1806%29.svg/900px-Banner_of_the_Holy_Roman_Emperor_without_haloes_%281400-1806%29.svg.png',
+  'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Royal_flag_of_France_during_the_Bourbon_Restoration.svg/2560px-Royal_flag_of_France_during_the_Bourbon_Restoration.svg.png'
+];
+
+document.body.style.backgroundImage = 'url(https://images5.alphacoders.com/494/thumb-1920-494485.jpg)';
+
+document.body.style.overflow = 'hidden';
+
+var images = [];
+var imageIndex = 0;
+var imageInterval = setInterval(function() {
+  if(dead) {return;}
+  var image = document.createElement('img');
+  image.src = urls[imageIndex];
+  image.style.position = 'absolute';
+  image.style.top = Math.random() * (window.innerHeight - 100) + 'px';
+  image.style.right = '0px';
+  image.style.width = '10%';
+  image.style.filter = 'drop-shadow(0px 0px 10px black)';
+
+  document.body.appendChild(image);
+  images.push(image);
+  imageIndex = (imageIndex + 1) % urls.length;
+}, 1000);
+
+flagMoveInterval = setInterval(function() {
+  if(dead) {return;}
+  for (var i = 0; i < images.length; i++) {
+    images[i].style.left = (parseInt(images[i].style.left) || 800) - speed + 'px';
+  }
+}, 10);
+
+var speed = 1;
+speedInterval = setInterval(function() {
+  if(dead) {return;}
+  speed += 0.01;
+}, 1000);
+
+var flag = document.createElement('img');
+flag.src = 'https://cdna.artstation.com/p/assets/images/images/032/363/590/large/raphael-waltsland-french-flag-v1.jpg?1606228318';
+flag.style.position = 'absolute';
+flag.style.left = '0px';
+flag.style.top = '0px';
+flag.style.width = '10%';
+flag.style.height = '100%';
+document.body.appendChild(flag);
+
+flag.style.zIndex = -1;
+
+var gameOver = document.createElement('div');
+gameOver.innerHTML = 'Game Over';
+gameOver.style.position = 'absolute';
+gameOver.style.top = '50%';
+gameOver.style.left = '50%';
+gameOver.style.transform = 'translate(-50%, -50%)';
+gameOver.style.fontSize = '100px';
+gameOver.style.color = 'red';
+gameOver.style.zIndex = 1;
+gameOver.style.filter = 'drop-shadow(0px 0px 20px black)';
+gameOver.style.display = 'none';
+document.body.appendChild(gameOver);
+
+setInterval(function() {
+  for (var i = 0; i < images.length; i++) {
+    if (images[i].getBoundingClientRect().left >= flag.getBoundingClientRect().left && images[i].getBoundingClientRect().left <= flag.getBoundingClientRect().right) {
+      gameOver.style.display = 'block';
+      clearInterval(imageInterval);
+      clearInterval(speedInterval);
+      clearInterval(flagMoveInterval);
+      dead = true;
+      flag.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/White_flag_of_surrender.svg/640px-White_flag_of_surrender.svg.png';
+    }
+  }
+}, 10);
+
+var points = document.createElement('div');
+points.style.position = 'absolute';
+points.style.top = '0px';
+points.style.left = '50%';
+points.style.transform = 'translateX(-50%)';
+points.style.fontSize = '50px';
+points.style.color = 'white';
+points.style.zIndex = 1;
+points.innerHTML = '0';
+document.body.appendChild(points);
+
+
+document.addEventListener('click', function(e) {
+
+  if (e.target.tagName === 'IMG' && images.includes(e.target, 0)) {
+    if(dead) {return;}
+    const index = images.indexOf(e.target);
+    if(index > -1) {
+       images.splice(index, 1);
+    }
+    e.target.parentNode.removeChild(e.target);
+    pointCount++;
+    points.innerHTML = pointCount;
+  }
+});
+
+document.addEventListener('keydown', function(e) {
+  if (e.keyCode === 82) {
+    location.reload();
+  }
+});
+
+img.style.top = '50%';
+
+img.style.transform = 'scaleX(-1) translateY(-50%)';
+
+points.style.textShadow = '0px 0px 10px black';
+
+var pointCount = 0;
+setInterval(function() {
+  if(dead) {return;}
+  points.innerHTML = pointCount;
+}, 10);
+});
+</script>
+</head>
+</html>
